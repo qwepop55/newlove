@@ -39,15 +39,27 @@ p{
   font-size:clamp(15px,4vw,18px);
 }
 
+/* ✅ ปุ่มแก้ใหม่ */
 button{
   margin-top:16px;
-  padding:14px;
-  font-size:clamp(14px,4vw,18px);
+  padding:14px 16px;
+  font-size:16px;
+  width:100%;
+  max-width:320px;
+
   border:none;
   border-radius:14px;
   color:white;
   background: linear-gradient(45deg,#ff2e63,#ff6b81);
   cursor:pointer;
+
+  line-height:1.4;
+  white-space:normal;
+  word-break:break-word;
+}
+
+button:active{
+  transform:scale(.97);
 }
 
 #loveText{
@@ -84,8 +96,10 @@ button{
   <h1>💖 Happy Valentine</h1>
   <p>สุขสันต์วันวาเลนไทน์</p>
 
-  <!-- ✅ ข้อความปุ่มเดียวกันทุกจอ -->
-  <button id="loveBtn"><p>เค้ามีอะไรจะบอกเธอ ^-^</p> 💘</button>
+  <!-- ✅ ห้ามใส่ p ใน button -->
+  <button id="loveBtn">
+    เค้ามีอะไรจะบอกเธอ ^-^ 💘
+  </button>
 
   <div id="loveText"></div>
 </div>
