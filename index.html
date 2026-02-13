@@ -15,86 +15,78 @@ body{
   font-family:sans-serif;
   background: linear-gradient(135deg,#ff4d6d,#ff9aa2,#ffd6e0);
   overflow:hidden;
-  position:relative;
 }
 
-/* การ์ด */
+/* ✅ การ์ดขนาดเล็กลง */
 .card{
   position:relative;
   z-index:1;
-  width:92vw;
-  max-width:520px;
-  min-height:70vh;
-  padding:40px 28px;
-  border-radius:30px;
+  width:85vw;
+  max-width:380px;
+  min-height:50vh;
+  padding:26px 20px;
+  border-radius:22px;
   text-align:center;
   background:white;
-  box-shadow:0 25px 70px rgba(0,0,0,.25);
+  box-shadow:0 20px 55px rgba(0,0,0,.25);
   display:flex;
   flex-direction:column;
   justify-content:center;
-  animation:pop .6s ease;
+  animation:pop .5s ease;
 }
 
 @keyframes pop{
-  from{transform:scale(.85); opacity:0}
+  from{transform:scale(.9); opacity:0}
   to{transform:scale(1); opacity:1}
 }
 
 h1{
-  font-size:32px;
+  font-size:24px;
   color:#ff2e63;
-  margin-bottom:16px;
+  margin-bottom:10px;
 }
 
 p{
-  font-size:20px;
-  line-height:1.7;
+  font-size:16px;
+  line-height:1.6;
   color:#444;
 }
 
 button{
-  margin-top:28px;
-  padding:18px;
-  font-size:20px;
+  margin-top:18px;
+  padding:14px;
+  font-size:16px;
   border:none;
-  border-radius:20px;
+  border-radius:14px;
   color:white;
   background: linear-gradient(45deg,#ff2e63,#ff6b81);
-  box-shadow:0 14px 30px rgba(255,46,99,.45);
+  box-shadow:0 10px 22px rgba(255,46,99,.4);
   cursor:pointer;
-  transition:.2s;
-}
-
-button:active{
-  transform:scale(.96);
 }
 
 #loveText{
-  margin-top:24px;
-  font-size:22px;
+  margin-top:16px;
+  font-size:18px;
   font-weight:bold;
   color:#ff2e63;
-  min-height:34px;
+  min-height:28px;
 }
 
-/* ❤️ หัวใจอยู่บนสุด */
+/* ❤️ หัวใจบนสุด */
 .heart{
   position:fixed;
   z-index:9999;
   pointer-events:none;
-  opacity:.8;
+  opacity:.85;
   animation:floatUp linear forwards;
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,.25));
 }
 
-/* ลอย + หมุน */
 @keyframes floatUp{
   from{
     transform:translateY(110vh) rotate(0deg) scale(.8);
   }
   to{
-    transform:translateY(-15vh) rotate(360deg) scale(1.4);
+    transform:translateY(-15vh) rotate(360deg) scale(1.3);
   }
 }
 </style>
@@ -104,47 +96,39 @@ button:active{
 
 <div class="card">
   <h1>💖 Happy Valentine</h1>
-
   <p>สุขสันต์วันวาเลนไทน์</p>
 
-  <button onclick="showLove()">ที่รัก เค้ามีอะไรจะบอกเธอด้วยแหละ w-w</button>
-
+  <button onclick="showLove()">กดรับความรัก</button>
   <div id="loveText"></div>
 </div>
 
 <script>
 const messages = [
- "รักเธอน้า w-w 💕",
- "ขอบคุณที่อยู่ด้วยกัน u=u",
- "ขอกอดแน่น ๆ น้า ^-^",
- "ยิ้มเยอะ ๆ นะคนดีของพี่ 💗"
+ "รักเธอน้า 💕",
+ "อยู่ด้วยกันนาน ๆ นะ",
+ "ขอกอดแน่น ๆ 💗",
+ "ยิ้มเยอะ ๆ คนดี"
 ];
 
 function showLove(){
   const m = messages[Math.floor(Math.random()*messages.length)];
   document.getElementById("loveText").innerText = m;
 
-  // ปล่อยหัวใจเพิ่มตอนกด
-  for(let i=0;i<6;i++){
-    makeHeart();
-  }
+  for(let i=0;i<5;i++) makeHeart();
 }
 
 function makeHeart(){
   const h = document.createElement("div");
   h.className = "heart";
   h.innerText = Math.random()>.5 ? "💗" : "💖";
-
   h.style.left = Math.random()*100+"vw";
-  h.style.fontSize = (22+Math.random()*28)+"px";
-  h.style.animationDuration = (4+Math.random()*4)+"s";
-
+  h.style.fontSize = (18+Math.random()*20)+"px";
+  h.style.animationDuration = (4+Math.random()*3)+"s";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
+  setTimeout(()=>h.remove(),7000);
 }
 
-/* หัวใจลอยตลอด */
-setInterval(makeHeart,500);
+setInterval(makeHeart,700);
 </script>
 
 </body>
