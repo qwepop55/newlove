@@ -32,14 +32,8 @@ body{
   z-index:2;
 }
 
-h1{
-  font-size:clamp(22px,5vw,30px);
-  color:#ff2e63;
-}
-
-p{
-  font-size:clamp(15px,4vw,18px);
-}
+h1{font-size:clamp(22px,5vw,30px); color:#ff2e63;}
+p{font-size:clamp(15px,4vw,18px);}
 
 button{
   margin-top:16px;
@@ -64,16 +58,26 @@ button{
   position:fixed;
   pointer-events:none;
   z-index:1;
-  animation:floatUp linear forwards;
+  animation: floatCrazy linear forwards;
 }
 
-@keyframes floatUp{
-  from{
-    transform: translateY(0) scale(.7);
+/* ลอย + ส่าย + หมุน */
+@keyframes floatCrazy{
+  0%{
+    transform: translate(0,0) rotate(0deg) scale(.7);
     opacity:1;
   }
-  to{
-    transform: translateY(-130vh) scale(1.4);
+  25%{
+    transform: translate(-40px,-30vh) rotate(90deg) scale(1);
+  }
+  50%{
+    transform: translate(40px,-60vh) rotate(180deg) scale(1.2);
+  }
+  75%{
+    transform: translate(-30px,-90vh) rotate(270deg) scale(1.3);
+  }
+  100%{
+    transform: translate(30px,-130vh) rotate(360deg) scale(1.4);
     opacity:0;
   }
 }
@@ -87,7 +91,6 @@ button{
   <p>สุขสันต์วันวาเลนไทน์</p>
 
   <button id="loveBtn">เค้ามีอะไรจะบอกเธอ ^-^ 💘</button>
-
   <div id="loveText"></div>
 </div>
 
@@ -102,13 +105,12 @@ const messages = [
 document.getElementById("loveBtn").onclick = showLove;
 
 function showLove(){
-  // แสดงข้อความ
   const m = messages[Math.floor(Math.random()*messages.length)];
   document.getElementById("loveText").innerText = m;
 
-  // ยิงหัวใจ 25 ดวง กระจายทั่วจอ
-  for(let i=0;i<25;i++){
-    setTimeout(makeHeart, i*120);
+  // ยิงหัวใจ 35 ดวง กระจายทั่วจอ
+  for(let i=0;i<35;i++){
+    setTimeout(makeHeart, i*90);
   }
 }
 
@@ -117,18 +119,18 @@ function makeHeart(){
   h.className = "heart";
   h.innerText = Math.random()>.5 ? "💗":"💖";
 
-  // กระจายตำแหน่งทั่วจอ
+  // จุดเริ่มทั่วหน้าจอ
   h.style.left = Math.random()*100 + "vw";
   h.style.bottom = "-40px";
 
   // ขนาดสุ่ม
-  h.style.fontSize = (20+Math.random()*30)+"px";
+  h.style.fontSize = (18+Math.random()*34)+"px";
 
-  // ความเร็วช้าลง (4–7 วิ)
-  h.style.animationDuration = (4 + Math.random()*3) + "s";
+  // ความเร็วสุ่ม (5–9 วิ) → ช้า + ฟุ้ง
+  h.style.animationDuration = (5 + Math.random()*4) + "s";
 
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
+  setTimeout(()=>h.remove(),9000);
 }
 </script>
 
