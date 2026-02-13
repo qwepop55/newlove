@@ -19,51 +19,35 @@ body{
   overflow:hidden;
 }
 
-/* ===== CARD ===== */
+/* CARD */
 .card{
-  position:relative;
-  z-index:1;
   width:90vw;
   max-width:420px;
-  min-height:48vh;
   padding:24px 18px;
   border-radius:22px;
   text-align:center;
   background:white;
   box-shadow:0 20px 55px rgba(0,0,0,.25);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  animation:pop .5s ease;
-}
-
-@keyframes pop{
-  from{transform:scale(.9); opacity:0}
-  to{transform:scale(1); opacity:1}
 }
 
 h1{
   font-size:clamp(22px,5vw,30px);
   color:#ff2e63;
-  margin-bottom:8px;
 }
 
 p{
-  font-size:clamp(15px,3.8vw,18px);
-  color:#444;
+  font-size:clamp(15px,4vw,18px);
 }
 
 button{
   margin-top:16px;
   padding:14px;
-  font-size:clamp(14px,3.8vw,18px);
+  font-size:clamp(14px,4vw,18px);
   border:none;
   border-radius:14px;
   color:white;
   background: linear-gradient(45deg,#ff2e63,#ff6b81);
-  box-shadow:0 10px 22px rgba(255,46,99,.4);
   cursor:pointer;
-  line-height:1.4;
 }
 
 #loveText{
@@ -71,10 +55,9 @@ button{
   font-size:clamp(16px,4vw,20px);
   font-weight:bold;
   color:#ff2e63;
-  min-height:26px;
 }
 
-/* ===== HEART EFFECT ===== */
+/* HEART */
 .heart{
   position:fixed;
   z-index:9999;
@@ -83,22 +66,13 @@ button{
 }
 
 @keyframes shootUp{
-  0%{
-    transform: translateY(0) scale(.6) rotate(0deg);
+  from{
+    transform:translateY(0) scale(.6) rotate(0);
     opacity:1;
   }
-  100%{
-    transform: translateY(-120vh) scale(1.4) rotate(540deg);
+  to{
+    transform:translateY(-120vh) scale(1.4) rotate(540deg);
     opacity:0;
-  }
-}
-
-/* ===== DESKTOP BOOST ===== */
-@media (min-width:900px){
-  .card{
-    max-width:520px;
-    padding:34px 28px;
-    min-height:55vh;
   }
 }
 </style>
@@ -110,9 +84,8 @@ button{
   <h1>💖 Happy Valentine</h1>
   <p>สุขสันต์วันวาเลนไทน์</p>
 
-  <button onclick="showLove()">
-    ที่รัก เค้ามีอะไรจะบอกเธอด้วยแหละ ^-^
-  </button>
+  <!-- ✅ ข้อความปุ่มเดียวกันทุกจอ -->
+  <button id="loveBtn">กดรับความรัก 💘</button>
 
   <div id="loveText"></div>
 </div>
@@ -125,26 +98,32 @@ const messages = [
  "ยิ้มเยอะ ๆ คนดี"
 ];
 
+document.getElementById("loveBtn").onclick = showLove;
+
 function showLove(){
   const m = messages[Math.floor(Math.random()*messages.length)];
   document.getElementById("loveText").innerText = m;
 
+  const btn = document.getElementById("loveBtn");
+  const rect = btn.getBoundingClientRect();
+  const x = rect.left + rect.width/2;
+  const y = rect.top + rect.height/2;
+
   for(let i=0;i<12;i++){
-    setTimeout(makeHeart, i*60);
+    setTimeout(()=>makeHeart(x,y), i*60);
   }
 }
 
-function makeHeart(){
+function makeHeart(x,y){
   const h = document.createElement("div");
   h.className = "heart";
-  h.innerText = Math.random()>.5 ? "💗" : "💖";
+  h.innerText = Math.random()>.5 ? "💗":"💖";
 
-  const btn = document.querySelector("button");
-  const rect = btn.getBoundingClientRect();
+  const spread = (Math.random()-0.5)*40;
 
-  h.style.left = rect.left + rect.width/2 + "px";
-  h.style.top = rect.top + "px";
-  h.style.fontSize = (18+Math.random()*26)+"px";
+  h.style.left = (x+spread)+"px";
+  h.style.top  = (y+spread)+"px";
+  h.style.fontSize = (18+Math.random()*24)+"px";
 
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),1600);
