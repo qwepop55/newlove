@@ -75,12 +75,25 @@ button:active{
   min-height:34px;
 }
 
-/* หัวใจพื้นหลัง */
+
+/* หัวใจทะลุการ์ด */
 .heart{
-  position:absolute;
+  position:fixed;
   font-size:28px;
-  opacity:.45;
+  opacity:.7;
+  pointer-events:none;
+  z-index:999;
   animation:float 7s linear infinite;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.2));
+}
+
+@keyframes float{
+  from{
+    transform:translateY(110vh) scale(.8) rotate(0deg);
+  }
+  to{
+    transform:translateY(-10vh) scale(1.3) rotate(360deg);
+  }
 }
 
 @keyframes float{
@@ -116,16 +129,19 @@ function showLove(){
   document.getElementById("loveText").innerText = m;
 }
 
-/* หัวใจลอย */
 function makeHeart(){
   const h = document.createElement("div");
   h.className = "heart";
-  h.innerText = "💗";
+  h.innerText = Math.random() > 0.5 ? "💗" : "💖";
+
   h.style.left = Math.random()*100+"vw";
-  h.style.animationDuration = (5+Math.random()*3)+"s";
+  h.style.fontSize = (20 + Math.random()*30) + "px";
+  h.style.animationDuration = (4+Math.random()*4)+"s";
+
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
+  setTimeout(()=>h.remove(),9000);
 }
+
 
 setInterval(makeHeart,600);
 </script>
